@@ -1,0 +1,18 @@
+# Local pi runtime state. Never commit these.
+auth.json
+models-store.json
+sessions/
+tmp/
+*.log
+.pi/
+node_modules/
+dist/
+
+# Nested dev checkout, already its own repo. Not part of this snapshot.
+pi-tasks/
+
+# Real local configs. Only *.example.json is published.
+settings.json
+models.json
+mcp.json
+trust.json
