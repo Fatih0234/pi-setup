@@ -10,9 +10,6 @@ Declared in `settings.example.json` under `packages`. Pi installs these on start
 | `npm:pi-lens` | npm | AST search, LSP navigation, diagnostics |
 | `git:github.com/Fatih0234/pi-tasks@v0.9.0-fork.1` | git | Task tracking extension (fork) |
 
-Disabled (kept for reference, not installed):
-
-- `../../playground/pi-simple-subagent`
-- `../../pi-learning-coach`
+Machine-local `_disabledPackages` entries were stripped from `settings.example.json` (broken relative paths, not portable).
 
 Local npm manifest from the machine (`~/.pi/agent/npm/package.json`) also lists `pi-oracle@^0.7.21` as installed. It is not in `settings.json` packages, so it is documented here only.

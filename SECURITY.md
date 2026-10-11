@@ -14,12 +14,13 @@ Only `*.example.json` files are published. Placeholders used:
 
 - `http://YOUR_PROXY_HOST:8317/v1`
 - `YOUR_API_KEY_OR_KEY_COMMAND`
+- `https://YOUR_HF_ENDPOINT_ID.us-east-2.aws.endpoints.huggingface.cloud/v1`
 - `/path/to/your/project`
 
 ## Before every push
 
 ```bash
-grep -riE "gho_|sk-|api-key|taila0233d|tailscale" --exclude-dir=.git --exclude-dir=pi-tasks . || true
+grep -riE "gho_|github_pat_|AKIA|xox[bap]-|ts\\.net|taila0233d|endpoints\\.huggingface" --exclude-dir=.git --exclude-dir=pi-tasks --exclude-dir=node_modules . || true
 git status --short
 ```
 

@@ -22,6 +22,7 @@ copy_file() {
 }
 
 copy_dir() {
+  # Note: dirs always merge/overwrite. Files use no-clobber unless --force.
   local src="$1" dest="$2"
   mkdir -p "$dest"
   cp -r "$src/." "$dest/"
@@ -42,13 +43,17 @@ copy_dir "$SRC/skills" "$DEST/skills"
 copy_dir "$SRC/prompts" "$DEST/prompts"
 
 # AGENTS.md lives at ~/.agents/AGENTS.md and is symlinked into ~/.pi/agent/
+# Skip the home write on test installs (custom PI_AGENT_DIR) unless PI_AGENTS_MD is set explicitly.
+AGENTS_DEST="${PI_AGENTS_MD:-$HOME/.agents/AGENTS.md}"
 if [[ -f "$SRC/AGENTS.md" ]]; then
-  mkdir -p "$HOME/.agents"
-  if [[ ! -e "$HOME/.agents/AGENTS.md" || "$FORCE" == "true" ]]; then
-    cp "$SRC/AGENTS.md" "$HOME/.agents/AGENTS.md"
-    echo "installed: \$HOME/.agents/AGENTS.md"
+  if [[ -n "${PI_AGENT_DIR:-}" && -z "${PI_AGENTS_MD:-}" ]]; then
+    echo "skip AGENTS.md (custom PI_AGENT_DIR, set PI_AGENTS_MD to install)"
+  elif [[ ! -e "$AGENTS_DEST" || "$FORCE" == "true" ]]; then
+    mkdir -p "$(dirname "$AGENTS_DEST")"
+    cp "$SRC/AGENTS.md" "$AGENTS_DEST"
+    echo "installed: $AGENTS_DEST"
   else
-    echo "skip (exists, use --force): \$HOME/.agents/AGENTS.md"
+    echo "skip (exists, use --force): $AGENTS_DEST"
   fi
 fi
 
